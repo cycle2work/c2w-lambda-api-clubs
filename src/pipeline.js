@@ -37,18 +37,16 @@ export default async function pipeline(event, context, callback) {
 
         log.debug({ response });
 
-        callback(null, {
+        await context.succeed({
             statusCode: 200,
             body: JSON.stringify({ reports: response })
         });
 
     } catch (error) {
         log.debug({ error });
-        callback(null, {
+        await context.succeed({
             statusCode: 400,
             body: JSON.stringify({ msg: "Error" })
         });
     }
-
-    context.succeed();
 }

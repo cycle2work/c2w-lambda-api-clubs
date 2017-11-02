@@ -17,7 +17,6 @@ describe("`Cycle2work clubs data API function`", () => {
 
     let db;
     let context;
-    let callback;
 
     before(async () => {
         db = await getMongoClient();
@@ -37,16 +36,13 @@ describe("`Cycle2work clubs data API function`", () => {
         context = {
             succeed: spy()
         };
-        callback = spy();
     });
 
     it("Return clubs activities data", async () => {
-        await handler({ queryStringParameters: {} }, context, callback);
+        await handler({ queryStringParameters: {} }, context);
 
-        expect(callback).to.have.been.calledOnce;
-
-        expect(callback.getCall(0).args[0]).to.equal(null);
-        expect(callback.getCall(0).args[1]).to.deep.equal({
+        expect(context.succeed).to.have.been.calledOnce;
+        expect(context.succeed.getCall(0).args[0]).to.deep.equal({
             statusCode: 200,
             body: JSON.stringify({
                 reports: [

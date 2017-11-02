@@ -3,7 +3,7 @@ import moment from "moment";
 import { log } from "./services/logger";
 import { retrieveClubs, retrieveReports } from "./services/mongo-db";
 
-export default async function pipeline(event, context) {
+export default async function pipeline(event, context, callback) {
 
     log.debug({ event });
 
@@ -29,6 +29,7 @@ export default async function pipeline(event, context) {
                 const total = report.distances.reduce((prev, current) => prev + current);
                 return state + total;
             }, 0);
+            delete club.access_token;
             return {
                 ...club,
                 distance
@@ -37,14 +38,14 @@ export default async function pipeline(event, context) {
 
         log.debug({ response });
 
-        await context.succeed({
+        await callback(null, {
             statusCode: 200,
             body: JSON.stringify({ reports: response })
         });
 
     } catch (error) {
         log.debug({ error });
-        await context.succeed({
+        await callback(null, {
             statusCode: 400,
             body: JSON.stringify({ msg: "Error" })
         });

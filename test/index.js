@@ -17,13 +17,14 @@ describe("`Cycle2work clubs data API function`", () => {
 
     let db;
     let context;
+    let callback;;
 
     before(async () => {
         db = await getMongoClient();
         await db.createCollection(REPORTS_COLLECTION);
         await db.collection(REPORTS_COLLECTION).insert(reports);
-        await db.collection(CLUBS_COLLECTION).insert({ _id: 148440, id: 148440 });
-        await db.collection(CLUBS_COLLECTION).insert({ _id: 148445, id: 148445 });
+        await db.collection(CLUBS_COLLECTION).insert({ _id: 148440, id: 148440, access_token: "12345" });
+        await db.collection(CLUBS_COLLECTION).insert({ _id: 148445, id: 148445, access_token: "12345"});
     });
 
     after(async () => {
@@ -36,13 +37,14 @@ describe("`Cycle2work clubs data API function`", () => {
         context = {
             succeed: spy()
         };
+        callback = spy()
     });
 
     it("Return clubs activities data", async () => {
-        await handler({ queryStringParameters: {} }, context);
+        await handler({ queryStringParameters: {} }, context, callback);
 
-        expect(context.succeed).to.have.been.calledOnce;
-        expect(context.succeed.getCall(0).args[0]).to.deep.equal({
+        expect(callback).to.have.been.calledOnce;
+        expect(callback.getCall(0).args[1]).to.deep.equal({
             statusCode: 200,
             body: JSON.stringify({
                 reports: [

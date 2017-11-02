@@ -38,16 +38,23 @@ export default async function pipeline(event, context, callback) {
 
         log.debug({ response });
 
-        await callback(null, {
+        const body = JSON.stringify({ reports: response });
+        log.debug({ body });
+
+        callback(null, {
             statusCode: 200,
-            body: JSON.stringify({ reports: response })
+            body
         });
 
     } catch (error) {
         log.debug({ error });
-        await callback(null, {
+
+        const body = JSON.stringify({ msg: "Error" });
+        log.debug({ body });
+
+        callback(null, {
             statusCode: 400,
-            body: JSON.stringify({ msg: "Error" })
+            body
         });
     }
 }

@@ -4,14 +4,14 @@ import { log } from "./services/logger";
 import { retrieveClubs, retrieveReports } from "./services/mongo-db";
 
 export default async function pipeline(event, context, callback) {
-    
+
     context.callbackWaitsForEmptyEventLoop = false;
 
-    log.debug({ event });
-
-    const { queryStringParameters: { month, year } = {} } = {};
-
     try {
+
+        log.debug({ event });
+
+        const { month, year } = event.queryStringParameters || {};
 
         const query = {
             month: month || moment.utc().format("MM"),

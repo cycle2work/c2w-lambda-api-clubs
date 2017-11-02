@@ -41,7 +41,7 @@ describe("`Cycle2work clubs data API function`", () => {
     });
 
     it("Return clubs activities data", async () => {
-        await handler({ queryStringParameters: {} }, context, callback);
+        await handler({ }, context, callback);
 
         expect(callback).to.have.been.calledOnce;
         expect(callback.getCall(0).args[1]).to.deep.equal({
@@ -56,6 +56,29 @@ describe("`Cycle2work clubs data API function`", () => {
                         _id: 148445,
                         id: 148445,
                         distance: 500
+                    }
+                ]
+            })
+        });
+
+    });
+
+    it("Return empty clubs activities data", async () => {
+        await handler({ queryStringParameters: { month: "02" } }, context, callback);
+
+        expect(callback).to.have.been.calledOnce;
+        expect(callback.getCall(0).args[1]).to.deep.equal({
+            statusCode: 200,
+            body: JSON.stringify({
+                reports: [
+                    {
+                        _id: 148440,
+                        id: 148440,
+                        distance: 0
+                    }, {
+                        _id: 148445,
+                        id: 148445,
+                        distance: 0
                     }
                 ]
             })

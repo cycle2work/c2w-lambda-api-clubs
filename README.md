@@ -2,7 +2,7 @@
 [![Dependency Status](https://david-dm.org/cycle2work/c2w-lambda-api-clubs.svg)](https://david-dm.org/cycle2work/c2w-lambda-api-clubs)
 [![devDependency Status](https://david-dm.org/cycle2work/c2w-lambda-api-clubs/dev-status.svg)](https://david-dm.org/cycle2work/c2w-lambda-api-clubs#info=devDependencies)
 
-# cycle2work/c2w-lambda-api-clubs
+# c2w-lambda-api-clubs
 
 AWS Lambda function to expose user activities data and enjoy [`Cycle2work`](https://cycle2work.io).
 

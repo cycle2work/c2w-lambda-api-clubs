@@ -17,14 +17,14 @@ describe("`Cycle2work clubs data API function`", () => {
 
     let db;
     let context;
-    let callback;;
+    let callback;
 
     before(async () => {
         db = await getMongoClient();
         await db.createCollection(REPORTS_COLLECTION);
         await db.collection(REPORTS_COLLECTION).insert(reports);
         await db.collection(CLUBS_COLLECTION).insert({ _id: 148440, id: 148440, access_token: "12345" });
-        await db.collection(CLUBS_COLLECTION).insert({ _id: 148445, id: 148445, access_token: "12345"});
+        await db.collection(CLUBS_COLLECTION).insert({ _id: 148445, id: 148445, access_token: "12345" });
     });
 
     after(async () => {
@@ -37,7 +37,7 @@ describe("`Cycle2work clubs data API function`", () => {
         context = {
             succeed: spy()
         };
-        callback = spy()
+        callback = spy();
     });
 
     it("Return clubs activities data", async () => {

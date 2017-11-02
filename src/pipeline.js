@@ -9,7 +9,7 @@ export default async function pipeline(event, context, callback) {
 
     log.debug({ event });
 
-    const { queryStringParameters: { month, year } } = event;
+    const { queryStringParameters: { month, year } = {} } = {};
 
     try {
 

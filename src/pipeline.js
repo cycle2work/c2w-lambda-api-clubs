@@ -4,6 +4,8 @@ import { log } from "./services/logger";
 import { retrieveClubs, retrieveReports } from "./services/mongo-db";
 
 export default async function pipeline(event, context, callback) {
+    
+    context.callbackWaitsForEmptyEventLoop = false;
 
     log.debug({ event });
 

@@ -39,9 +39,6 @@ export default async function pipeline(event, context, callback) {
 
         callback(null, {
             statusCode: 200,
-            headers: {
-                "Content-Type": "application/json"
-            },
             body: JSON.stringify({ reports: response })
         });
 
@@ -49,9 +46,6 @@ export default async function pipeline(event, context, callback) {
         log.debug({ error });
         callback(null, {
             statusCode: 400,
-            headers: {
-                "Content-Type": "application/json"
-            },
             body: JSON.stringify({ msg: "Error" })
         });
     }

@@ -46,6 +46,10 @@ describe("`Cycle2work clubs data API function`", () => {
         expect(callback).to.have.been.calledOnce;
         expect(callback.getCall(0).args[1]).to.deep.equal({
             statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true
+            },
             body: JSON.stringify({
                 reports: [
                     {
@@ -69,6 +73,10 @@ describe("`Cycle2work clubs data API function`", () => {
         expect(callback).to.have.been.calledOnce;
         expect(callback.getCall(0).args[1]).to.deep.equal({
             statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true
+            },
             body: JSON.stringify({
                 reports: [
                     {
@@ -92,6 +100,10 @@ describe("`Cycle2work clubs data API function`", () => {
         expect(callback).to.have.been.calledOnce;
         expect(callback.getCall(0).args[1]).to.deep.equal({
             statusCode: 400,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true
+            },
             body: JSON.stringify({
                 msg: "Error"
             })

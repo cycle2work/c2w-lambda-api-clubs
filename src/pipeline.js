@@ -45,6 +45,10 @@ export default async function pipeline(event, context, callback) {
 
         callback(null, {
             statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin" : "*",
+                "Access-Control-Allow-Credentials" : true
+            },
             body
         });
 
@@ -56,6 +60,10 @@ export default async function pipeline(event, context, callback) {
 
         callback(null, {
             statusCode: 400,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true
+            },
             body
         });
     }

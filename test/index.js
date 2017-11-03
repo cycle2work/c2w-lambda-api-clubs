@@ -86,4 +86,17 @@ describe("`Cycle2work clubs data API function`", () => {
 
     });
 
+    it("Return error 400 Bad Request", async () => {
+        await handler(null, context, callback);
+
+        expect(callback).to.have.been.calledOnce;
+        expect(callback.getCall(0).args[1]).to.deep.equal({
+            statusCode: 400,
+            body: JSON.stringify({
+                msg: "Error"
+            })
+        });
+
+    });
+
 });

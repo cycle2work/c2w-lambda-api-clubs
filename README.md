@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/cycle2work/c2w-lambda-api-clubs.svg?branch=master)](https://travis-ci.org/cycle2work/c2w-lambda-api-clubs)
+[![codecov](https://codecov.io/gh/cycle2work/c2w-lambda-api-clubs/branch/master/graph/badge.svg)](https://codecov.io/gh/cycle2work/c2w-lambda-api-clubs)
 [![Dependency Status](https://david-dm.org/cycle2work/c2w-lambda-api-clubs.svg)](https://david-dm.org/cycle2work/c2w-lambda-api-clubs)
 [![devDependency Status](https://david-dm.org/cycle2work/c2w-lambda-api-clubs/dev-status.svg)](https://david-dm.org/cycle2work/c2w-lambda-api-clubs#info=devDependencies)
 

@@ -46,7 +46,7 @@ describe("`Cycle2work clubs data API function`", () => {
 
     it("Return clubs activities data", async () => {
         await handler(
-            { queryStringParameters: { month: "11", year: 2017, user: 2 } },
+            { queryStringParameters: { month: "11", year: "2017", user: "2" } },
             context,
             callback
         );

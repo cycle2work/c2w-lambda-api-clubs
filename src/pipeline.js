@@ -13,7 +13,7 @@ export default async function pipeline(event, context, callback) {
 
         const query = {
             month: month || moment.utc().format("MM"),
-            year: year || moment.utc().year()
+            year: parseInt(year) || moment.utc().year()
         };
         log.debug({ query });
 
@@ -40,7 +40,7 @@ export default async function pipeline(event, context, callback) {
 
         let activities;
         if (user) {
-            activities = await retrieveUserActivities({ "athlete.id": user });
+            activities = await retrieveUserActivities({ "athlete.id": parseInt(user) });
         }
         log.debug({ activities });
 

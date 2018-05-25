@@ -2,6 +2,7 @@ import { MongoClient } from "mongodb";
 
 import {
     MONGODB_URL,
+    ACTIVITIES_COLLECTION,
     CLUBS_COLLECTION,
     REPORTS_COLLECTION
 } from "../config";
@@ -17,10 +18,24 @@ export async function getMongoClient() {
 
 export async function retrieveReports(query = {}) {
     const db = await getMongoClient();
-    return await db.collection(REPORTS_COLLECTION).find(query).toArray();
+    return await db
+        .collection(REPORTS_COLLECTION)
+        .find(query)
+        .toArray();
 }
 
 export async function retrieveClubs(query = {}) {
     const db = await getMongoClient();
-    return await db.collection(CLUBS_COLLECTION).find(query).toArray();
+    return await db
+        .collection(CLUBS_COLLECTION)
+        .find(query)
+        .toArray();
+}
+
+export async function retrieveUserActivities(query = {}) {
+    const db = await getMongoClient();
+    return await db
+        .collection(ACTIVITIES_COLLECTION)
+        .find(query)
+        .toArray();
 }

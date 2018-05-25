@@ -1,17 +1,15 @@
 import moment from "moment";
 
 import { log } from "./services/logger";
-import { retrieveClubs, retrieveReports } from "./services/mongo-db";
+import { retrieveUserActivities, retrieveClubs, retrieveReports } from "./services/mongo-db";
 
 export default async function pipeline(event, context, callback) {
-
     context.callbackWaitsForEmptyEventLoop = false;
 
     try {
-
         log.debug({ event });
 
-        const { month, year } = event.queryStringParameters || {};
+        const { month, year, user } = event.queryStringParameters || {};
 
         const query = {
             month: month || moment.utc().format("MM"),
@@ -40,18 +38,23 @@ export default async function pipeline(event, context, callback) {
 
         log.debug({ response });
 
-        const body = JSON.stringify({ reports: response });
+        let activities;
+        if (user) {
+            activities = await retrieveUserActivities({ "athlete.id": user });
+        }
+        log.debug({ activities });
+
+        const body = JSON.stringify({ reports: response, activities });
         log.debug({ body });
 
         callback(null, {
             statusCode: 200,
             headers: {
-                "Access-Control-Allow-Origin" : "*",
-                "Access-Control-Allow-Credentials" : true
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true
             },
             body
         });
-
     } catch (error) {
         log.debug({ error });
 

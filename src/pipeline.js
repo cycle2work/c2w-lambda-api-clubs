@@ -1,5 +1,7 @@
 import moment from "moment";
 
+import uniqby from "lodash.uniqby";
+
 import { log } from "./services/logger";
 import {
     retrieveUserActivities,
@@ -56,10 +58,13 @@ export default async function pipeline(event, context, callback) {
             log.debug({ club, retrivedUser, months });
 
             if (retrivedUser) {
-                userActivities = await retrieveUserActivities({
-                    "athlete.id": parseInt(user),
-                    month: { $in: months }
-                });
+                userActivities = uniqby(
+                    await retrieveUserActivities({
+                        "athlete.id": parseInt(user),
+                        month: { $in: months }
+                    }),
+                    x => x.id
+                );
 
                 clubActivities = await retrieveClubActivities({
                     "club.id": club.id,

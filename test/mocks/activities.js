@@ -53,5 +53,16 @@ export default [
         club: {
             id: 2
         }
+    },
+    {
+        _id: 6,
+        month: 7,
+        distance: 10,
+        athlete: {
+            id: 2
+        },
+        club: {
+            id: 3
+        }
     }
 ];

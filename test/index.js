@@ -59,7 +59,7 @@ describe("`Cycle2work clubs data API function`", () => {
 
     it("Return clubs activities data", async () => {
         await handler(
-            { queryStringParameters: { month: "11", year: "2017", user: "2" } },
+            { queryStringParameters: { month: "08", year: "2017", user: "2" } },
             context,
             callback
         );
@@ -76,18 +76,18 @@ describe("`Cycle2work clubs data API function`", () => {
                     {
                         _id: 148440,
                         id: 148440,
-                        distance: 450
+                        distance: 50
                     },
                     {
                         _id: 148445,
                         id: 148445,
-                        distance: 500
+                        distance: 0
                     }
                 ],
                 activities: [
                     {
                         _id: 5,
-                        month: "11",
+                        month: 7,
                         distance: 10,
                         athlete: {
                             id: 2
@@ -101,7 +101,7 @@ describe("`Cycle2work clubs data API function`", () => {
                     activities: [
                         {
                             _id: 4,
-                            month: "10",
+                            month: 8,
                             distance: 25,
                             athlete: {
                                 id: 1
@@ -112,7 +112,7 @@ describe("`Cycle2work clubs data API function`", () => {
                         },
                         {
                             _id: 5,
-                            month: "11",
+                            month: 7,
                             distance: 10,
                             athlete: {
                                 id: 2

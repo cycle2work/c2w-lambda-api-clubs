@@ -18,7 +18,7 @@ export default async function pipeline(event, context, callback) {
         const { month, year, user } = event.queryStringParameters || {};
 
         const query = {
-            month: month || moment.utc().format("MM"),
+            month: parseInt(month) || moment.utc().month() + 1,
             year: parseInt(year) || moment.utc().year()
         };
         log.debug({ query });
@@ -52,7 +52,7 @@ export default async function pipeline(event, context, callback) {
             // FIXME: Temporary get the first team
             const [club] = retrivedUser.clubs;
 
-            const months = [month, `${parseInt(month) - 1}`];
+            const months = [parseInt(month), parseInt(month) - 1];
             log.debug({ club, retrivedUser, months });
 
             if (retrivedUser) {

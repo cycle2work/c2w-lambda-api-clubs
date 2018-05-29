@@ -4,6 +4,7 @@ import {
     MONGODB_URL,
     ACTIVITIES_COLLECTION,
     CLUBS_COLLECTION,
+    USERS_COLLECTION,
     REPORTS_COLLECTION
 } from "../config";
 
@@ -14,6 +15,11 @@ export async function getMongoClient() {
         dbInstance = await MongoClient.connect(MONGODB_URL);
     }
     return dbInstance;
+}
+
+export async function retrieveUser(query = {}) {
+    const db = await getMongoClient();
+    return await db.collection(USERS_COLLECTION).findOne(query);
 }
 
 export async function retrieveReports(query = {}) {
@@ -33,6 +39,14 @@ export async function retrieveClubs(query = {}) {
 }
 
 export async function retrieveUserActivities(query = {}) {
+    const db = await getMongoClient();
+    return await db
+        .collection(ACTIVITIES_COLLECTION)
+        .find(query)
+        .toArray();
+}
+
+export async function retrieveClubActivities(query = {}) {
     const db = await getMongoClient();
     return await db
         .collection(ACTIVITIES_COLLECTION)

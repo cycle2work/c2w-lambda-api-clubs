@@ -1,7 +1,13 @@
 import moment from "moment";
 
 import { log } from "./services/logger";
-import { retrieveUserActivities, retrieveClubs, retrieveReports } from "./services/mongo-db";
+import {
+    retrieveUserActivities,
+    retrieveClubs,
+    retrieveReports,
+    retrieveUser,
+    retrieveClubActivities
+} from "./services/mongo-db";
 
 export default async function pipeline(event, context, callback) {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -23,7 +29,7 @@ export default async function pipeline(event, context, callback) {
         const clubs = await retrieveClubs();
         log.debug({ clubs });
 
-        const response = clubs.map(club => {
+        const clubsReports = clubs.map(club => {
             const clubReports = reports.filter(x => x.club.id === club.id);
             const distance = clubReports.reduce((state, report) => {
                 const total = report.distances.reduce((prev, current) => prev + current);
@@ -36,15 +42,35 @@ export default async function pipeline(event, context, callback) {
             };
         });
 
-        log.debug({ response });
+        log.debug({ clubsReports });
 
-        let activities;
+        let userActivities = [];
+        let clubActivities = [];
+
         if (user) {
-            activities = await retrieveUserActivities({ "athlete.id": parseInt(user) });
-        }
-        log.debug({ activities });
+            const retrivedUser = await retrieveUser({ id: parseInt(user) });
+            // FIXME: Temporary get the first team
+            const [club] = retrivedUser.clubs;
 
-        const body = JSON.stringify({ reports: response, activities });
+            if (retrivedUser) {
+                userActivities = await retrieveUserActivities({
+                    "athlete.id": parseInt(user),
+                    month: { $in: [month, `${parseInt(month) - 1}`] }
+                });
+
+                clubActivities = await retrieveClubActivities({
+                    "club.id": parseInt(club.id),
+                    month: { $in: [month, `${parseInt(month) - 1}`] }
+                });
+            }
+        }
+        log.debug({ userActivities, clubActivities });
+
+        const body = JSON.stringify({
+            reports: clubsReports,
+            activities: userActivities,
+            club: { activities: clubActivities }
+        });
         log.debug({ body });
 
         callback(null, {

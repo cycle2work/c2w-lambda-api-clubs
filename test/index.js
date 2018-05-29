@@ -5,10 +5,16 @@ import sinonChai from "sinon-chai";
 chai.use(sinonChai);
 
 import { handler } from "index";
-import { ACTIVITIES_COLLECTION, CLUBS_COLLECTION, REPORTS_COLLECTION } from "config";
+import {
+    ACTIVITIES_COLLECTION,
+    CLUBS_COLLECTION,
+    REPORTS_COLLECTION,
+    USERS_COLLECTION
+} from "../src/config";
 
 import activities from "./mocks/activities";
 import reports from "./mocks/reports";
+import users from "./mocks/users";
 import { getMongoClient } from "services/mongo-db";
 
 describe("`Cycle2work clubs data API function`", () => {
@@ -18,7 +24,13 @@ describe("`Cycle2work clubs data API function`", () => {
 
     before(async () => {
         db = await getMongoClient();
+
+        await db.createCollection(CLUBS_COLLECTION);
+        await db.createCollection(USERS_COLLECTION);
         await db.createCollection(REPORTS_COLLECTION);
+        await db.createCollection(ACTIVITIES_COLLECTION);
+
+        await db.collection(USERS_COLLECTION).insert(users);
         await db.collection(REPORTS_COLLECTION).insert(reports);
         await db.collection(ACTIVITIES_COLLECTION).insert(activities);
 
@@ -31,9 +43,10 @@ describe("`Cycle2work clubs data API function`", () => {
     });
 
     after(async () => {
-        await db.dropCollection(ACTIVITIES_COLLECTION);
-        await db.dropCollection(REPORTS_COLLECTION);
         await db.dropCollection(CLUBS_COLLECTION);
+        await db.dropCollection(USERS_COLLECTION);
+        await db.dropCollection(REPORTS_COLLECTION);
+        await db.dropCollection(ACTIVITIES_COLLECTION);
         await db.close();
     });
 
@@ -74,12 +87,42 @@ describe("`Cycle2work clubs data API function`", () => {
                 activities: [
                     {
                         _id: 5,
+                        month: "11",
                         distance: 10,
                         athlete: {
                             id: 2
+                        },
+                        club: {
+                            id: 2
                         }
                     }
-                ]
+                ],
+                club: {
+                    activities: [
+                        {
+                            _id: 4,
+                            month: "10",
+                            distance: 25,
+                            athlete: {
+                                id: 1
+                            },
+                            club: {
+                                id: 2
+                            }
+                        },
+                        {
+                            _id: 5,
+                            month: "11",
+                            distance: 10,
+                            athlete: {
+                                id: 2
+                            },
+                            club: {
+                                id: 2
+                            }
+                        }
+                    ]
+                }
             })
         });
     });
@@ -106,7 +149,8 @@ describe("`Cycle2work clubs data API function`", () => {
                         id: 148445,
                         distance: 0
                     }
-                ]
+                ],
+                club: {}
             })
         });
     });

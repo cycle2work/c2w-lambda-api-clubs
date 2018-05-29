@@ -61,7 +61,7 @@ export default async function pipeline(event, context, callback) {
                 });
 
                 clubActivities = await retrieveClubActivities({
-                    "club.id": parseInt(club.id),
+                    "club.id": club.id,
                     month: { $in: [month, `${parseInt(month) - 1}`] }
                 });
             }

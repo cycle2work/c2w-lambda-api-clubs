@@ -44,8 +44,8 @@ export default async function pipeline(event, context, callback) {
 
         log.debug({ clubsReports });
 
-        let userActivities = [];
-        let clubActivities = [];
+        let userActivities;
+        let clubActivities;
 
         if (user) {
             const retrivedUser = await retrieveUser({ id: parseInt(user) });

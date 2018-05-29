@@ -52,6 +52,8 @@ export default async function pipeline(event, context, callback) {
             // FIXME: Temporary get the first team
             const [club] = retrivedUser.clubs;
 
+            log.debug({ club, retrivedUser });
+
             if (retrivedUser) {
                 userActivities = await retrieveUserActivities({
                     "athlete.id": parseInt(user),

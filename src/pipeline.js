@@ -52,17 +52,18 @@ export default async function pipeline(event, context, callback) {
             // FIXME: Temporary get the first team
             const [club] = retrivedUser.clubs;
 
-            log.debug({ club, retrivedUser });
+            const months = [month, `${parseInt(month) - 1}`];
+            log.debug({ club, retrivedUser, months });
 
             if (retrivedUser) {
                 userActivities = await retrieveUserActivities({
                     "athlete.id": parseInt(user),
-                    month: { $in: [month, `${parseInt(month) - 1}`] }
+                    month: { $in: months }
                 });
 
                 clubActivities = await retrieveClubActivities({
                     "club.id": club.id,
-                    month: { $in: [month, `${parseInt(month) - 1}`] }
+                    month: { $in: months }
                 });
             }
         }

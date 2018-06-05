@@ -34,12 +34,13 @@ export default async function pipeline(event, context, callback) {
         const clubsReports = clubs.map(club => {
             const clubReports = reports.filter(x => x.club.id === club.id);
             const distance = clubReports.reduce((state, report) => {
-                const total = report.distances.reduce((prev, current) => prev + current);
+                const total = report.distances.reduce((prev, current) => prev + current, 0);
                 return state + total;
             }, 0);
-            delete club.access_token;
             return {
-                ...club,
+                id: club.id,
+                name: club.name,
+                members: club.member_count,
                 distance
             };
         });

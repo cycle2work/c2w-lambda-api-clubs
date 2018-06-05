@@ -74,12 +74,10 @@ describe("`Cycle2work clubs data API function`", () => {
             body: JSON.stringify({
                 reports: [
                     {
-                        _id: 148440,
                         id: 148440,
                         distance: 50
                     },
                     {
-                        _id: 148445,
                         id: 148445,
                         distance: 0
                     }
@@ -140,12 +138,10 @@ describe("`Cycle2work clubs data API function`", () => {
             body: JSON.stringify({
                 reports: [
                     {
-                        _id: 148440,
                         id: 148440,
                         distance: 0
                     },
                     {
-                        _id: 148445,
                         id: 148445,
                         distance: 0
                     }

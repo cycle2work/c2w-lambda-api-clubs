@@ -41,6 +41,7 @@ export default async function pipeline(event, context, callback) {
                 id: club.id,
                 name: club.name,
                 members: club.member_count,
+                profile: club.profile,
                 distance
             };
         });

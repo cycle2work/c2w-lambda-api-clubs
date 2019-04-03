@@ -86,6 +86,7 @@ describe("`Cycle2work clubs data API function`", () => {
                     {
                         _id: 5,
                         month: 7,
+                        year: "2017",
                         distance: 10,
                         athlete: {
                             id: 2
@@ -100,6 +101,7 @@ describe("`Cycle2work clubs data API function`", () => {
                         {
                             _id: 4,
                             month: 8,
+                            year: "2017",
                             distance: 25,
                             athlete: {
                                 id: 1
@@ -111,6 +113,7 @@ describe("`Cycle2work clubs data API function`", () => {
                         {
                             _id: 5,
                             month: 7,
+                            year: "2017",
                             distance: 10,
                             athlete: {
                                 id: 2

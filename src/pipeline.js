@@ -59,18 +59,22 @@ export default async function pipeline(event, context, callback) {
             const months = [parseInt(month), parseInt(month) - 1];
             log.debug({ club, retrivedUser, months });
 
+            const activitiesYear = query.year.toString();
+
             if (retrivedUser) {
                 userActivities = uniqby(
                     await retrieveUserActivities({
                         "athlete.id": parseInt(user),
-                        month: { $in: months }
+                        month: { $in: months },
+                        year: activitiesYear
                     }),
                     x => x.id
                 );
 
                 clubActivities = await retrieveClubActivities({
                     "club.id": club.id,
-                    month: { $in: months }
+                    month: { $in: months },
+                    year: activitiesYear
                 });
             }
         }

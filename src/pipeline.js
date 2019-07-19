@@ -1,6 +1,6 @@
 import moment from "moment";
 
-import uniqby from "lodash.uniqby";
+import { uniqBy, sortBy, reverse, slice } from "lodash";
 
 import { log } from "./services/logger";
 import {
@@ -10,6 +10,8 @@ import {
     retrieveUser,
     retrieveClubActivities
 } from "./services/mongo-db";
+
+import { REPORTS_LIMIT } from "./config";
 
 export default async function pipeline(event, context, callback) {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -46,7 +48,13 @@ export default async function pipeline(event, context, callback) {
             };
         });
 
-        log.debug({ clubsReports });
+        const sortedClubReports = slice(
+            reverse(sortBy(clubsReports, ["distance"])),
+            0,
+            parseInt(REPORTS_LIMIT)
+        );
+
+        log.debug({ clubsReports, sortedClubReports });
 
         let userActivities;
         let clubActivities;
@@ -62,7 +70,7 @@ export default async function pipeline(event, context, callback) {
             const activitiesYear = query.year.toString();
 
             if (retrivedUser) {
-                userActivities = uniqby(
+                userActivities = uniqBy(
                     await retrieveUserActivities({
                         "athlete.id": parseInt(user),
                         month: { $in: months },
@@ -81,7 +89,7 @@ export default async function pipeline(event, context, callback) {
         log.debug({ userActivities, clubActivities });
 
         const body = JSON.stringify({
-            reports: clubsReports,
+            reports: sortedClubReports,
             activities: userActivities,
             club: { activities: clubActivities }
         });

@@ -141,11 +141,11 @@ describe("`Cycle2work clubs data API function`", () => {
             body: JSON.stringify({
                 reports: [
                     {
-                        id: 148440,
+                        id: 148445,
                         distance: 0
                     },
                     {
-                        id: 148445,
+                        id: 148440,
                         distance: 0
                     }
                 ],

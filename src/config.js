@@ -7,6 +7,6 @@ export const ACTIVITIES_COLLECTION = process.env.ACTIVITIES_COLLECTION || "proce
 export const USERS_COLLECTION = process.env.USERS_COLLECTION || "users";
 export const CLUBS_COLLECTION = process.env.CLUBS_COLLECTION || "clubs";
 export const REPORTS_COLLECTION = process.env.REPORTS_COLLECTION || "reports";
-export const REPORTS_LIMIT = process.env.REPORTS_LIMIT || "15";
+export const REPORTS_LIMIT = process.env.REPORTS_LIMIT || "10";
 export const MONGODB_URL =
     process.env.NODE_ENV !== "test" ? process.env.MONGODB_URL : "mongodb://localhost:27017/test";

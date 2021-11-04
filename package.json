@@ -14,7 +14,7 @@
     "dotenv": "^2.0.0",
     "lodash": "^4.17.21",
     "moment": "^2.19.1",
-    "mongodb": "^2.2.33"
+    "mongodb": "^4.1.4"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
